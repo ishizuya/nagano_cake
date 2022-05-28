@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  resources :items,only:[:index,:show]
+  resources :items,only:[:index, :show]
   resources :customers,only:[:edit,:show]
   resources :cart_items,only:[:index]
   resources :oders,only:[:index,:show,:new]
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "homes#top"
-    resources :items,only:[:index,:show,:new,:edit]
+    resources :items,only:[:index, :show, :new, :create, :update, :edit]
     resources :genres,only:[:index,:edit,:create,:update]
     resources :customers,only:[:index,:show,:edit]
     resources :oders,only:[:show]

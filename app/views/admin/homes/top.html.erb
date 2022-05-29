@@ -1,19 +1,29 @@
-<h1>注文履歴一覧</h1>
+<h3>注文履歴一覧</h3>
 <table>
-    <thead>
+  <thead>
+    <tr>
+      <td>購入日時</td>
+      <td>購入者</td>
+      <td>注文個数</td>
+      <td>注文ステータス</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
         <td>
-            <tr>購入日時</tr>
-            <tr>購入者</tr>
-            <tr>注文個数</tr>
-            <tr>注文ステータス</tr>
+          <%= link_to order.created_at.strftime("%Y-%m-%d %H:%M"), admin_order_path(order.id) %>
         </td>
-    </thead>
-    <tbody>
         <td>
-            <tr></tr>
-            <tr></tr>
-            <tr></tr>
-            <tr></tr>
+          <%= order.customer.last_name %><%= order.customer.first_name %>
         </td>
-    </tbody>
+        <td>
+          <%= order.ordered_items.sum(:quantity) %>
+        </td>
+        <td>
+          <%= order.status %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

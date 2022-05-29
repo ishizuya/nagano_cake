@@ -18,6 +18,7 @@ class Admin::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    # @item_tax = (Item.price * 1.1).floor
   end
 
   def edit
@@ -26,8 +27,13 @@ class Admin::ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    @item.update(item_params)
-    redirect_to admin_item_path(@item)
+    @item.image.attach(params[:id]) if @item.image.blank?
+    if @item.update(item_params)
+      flash[:success] = '更新しました'
+      redirect_to admin_item_path(@item)
+    else
+      render 'edit'
+    end
   end
 
   private

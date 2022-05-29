@@ -18,16 +18,16 @@ Rails.application.routes.draw do
   }
 
   resources :items,only:[:index, :show]
-  resources :customers,only:[:edit,:show]
+  resources :customers,only:[:edit,:show,:unsubscribe,:withdraw]
   resources :cart_items,only:[:index]
   resources :oders,only:[:index,:show,:new]
   resources :addresses,only:[:index,:edit]
 
   namespace :admin do
-    root to: "homes#top"
+    get "/" => "homes#top"
     resources :items,only:[:index, :show, :new, :create, :update, :edit]
     resources :genres,only:[:index,:edit,:create,:update]
-    resources :customers,only:[:index,:show,:edit]
-    resources :oders,only:[:show]
+    resources :customers,only:[:index,:show,:edit,:update]
+    resources :oders,only:[:show,:update]
   end
 end

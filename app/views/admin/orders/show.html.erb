@@ -2,22 +2,56 @@
 <table>
   <tr>
     <th>購入者</th>
-    <td></td>
+    <td><%= @order.customer.last_name %><%= @order.customer.first_name %></td>
   </tr>
   <tr>
     <th>注文日</th>
-    <td></td>
+    <td><%= @order.created_at.strftime("%Y-%m-%d %H:%M") %></td>
   </tr>
   <tr>
     <th>配送先</th>
-    <td></td>
+    <td><%= @order.postal_code %> <%= @order.address %><br><%= @order.name %></td>
   </tr>
   <tr>
     <th>支払い方法</th>
-    <td></td>
+    <td><%= @order.payment_method %></td>
   </tr>
   <tr>
     <th>注文ステータス</th>
-    <td></td>
+    <td>
+      <%= form_with model: @order, url:admin_order_path, local:true do |f| %>
+        <%= f.select :status, ["入金待ち","入金確認","製作中","発送準備中","発送済み"], autofocus: true, id:"inputStatus"  %>
+        <%= f.submit '更新' %>
+      <% end %>
+    </td>
   </tr>
+</table>
+<table>
+  <thead>
+    <tr>
+      <td>商品名</td>
+      <td>単価(税込)</td>
+      <td>数量</td>
+      <td>小計</td>
+      <td colspan="2">製作ステータス</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.order_details.each do |order_detail| %>
+      <tr>
+        <td><%= order_detail.item.name %></td>
+        <td><%= order_detail.price %></td>
+        <td><%= order_detail.amount %></td>
+        <td><%= order_detail.subtotal %></td>
+        <td>
+          <%= form_with model: order_detail, url:admin_order_detail_path, local:true do |f| %>
+            <%= f.select :making_status, ["製作不可","製作待ち","製作中","製作完了"], autofocus: true, id:"inputMakingStatus"  %>
+            <%= f.hidden_field :order_detail_id, :value => order_detail.id %>
+        </td>
+        <td>
+            <%= f.submit '更新' %>
+          <% end %>
+        </td>
+      </tr>
+  </tbody>
 </table>

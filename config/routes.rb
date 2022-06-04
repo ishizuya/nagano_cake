@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # devise_for :customers
   root to: "public/homes#top"
   get "about" => "public/homes#about", as: "about"
-
+  # get "customers" => "public/customers#show", as: "my_page"
   # 顧客用
   # URL /customers/sign_in ...
   devise_for :customers,skip: [:passwords], controllers: {
@@ -17,11 +17,14 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  resources :items,only:[:index, :show]
-  resources :customers,only:[:edit,:show,:unsubscribe,:withdraw]
-  resources :cart_items,only:[:index]
-  resources :oders,only:[:index,:show,:new]
-  resources :addresses,only:[:index,:edit]
+  scope module: :public do
+    resources :items,only:[:index, :show]
+    resources :customers,only:[:edit,:update,:unsubscribe,:withdraw,:show]
+    # resources :customers, param: :my_page, path: '/', only: [:edit,:show,:update,:unsubscribe,:withdraw]
+    resources :cart_items,only:[:index]
+    resources :orders,only:[:index,:show,:new]
+    resources :addresses,only:[:index,:edit]
+  end
 
   namespace :admin do
     get "/" => "homes#top"

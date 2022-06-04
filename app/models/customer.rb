@@ -4,7 +4,8 @@ class Customer < ApplicationRecord
    devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :cart_items
-  has_many :oders
+  has_many :orders
   has_many :addresses
   validates :is_deleted, inclusion: { in: [false, true] }
+
 end

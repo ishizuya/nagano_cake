@@ -23,12 +23,9 @@ class Public::SessionsController < Devise::SessionsController
     ## アカウントを取得できなかった場合、このメソッドを終了する
     return if !@customer
     ## 【処理内容2】 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別 &$ 退会ステータスが有効かを判断
-    if @customer.valid_password?(params[:customer][:password]) && (@customer.is_deleted == false)
-      ## 条件を満たせばログイン処理
-      redirect_to customer_path(current_customer.id)
-    else
-      ## パスワードが合っていなかった場合、退会している場合の処理
-      redirect_to customer_session_path
+    unless @customer.valid_password?(params[:customer][:password]) && (@customer.is_deleted == false)
+      ## 「取得したパスワードと入力したパスワードが一致しない」または「会員ステータスが退会」の場合は新規登録画面に遷移
+      redirect_to new_customer_session_path
     end
   end
 

@@ -1,1 +1,20 @@
 <h3>商品一覧</h3>
+<p>（全<%= @items_true_count %>件）</p>
+<div class="d-flex">
+  <% @items_true.each do |item_true| %>
+    <div>
+      <%= link_to item_path(item_true.id) do %>
+        <p>
+          <% if item_true.image.attached? %>
+            <%= image_tag item_true.image, size: "120x100" %>
+          <% else %>
+            <%= image_tag 'no_image', size: "120x100" %>
+          <% end %>
+        </p>
+        <p><%= item_true.name %></p>
+      <% end %>
+        <p>￥<%= item_true.add_tax_price %></p>
+    </div>
+  <% end %>
+</div>
+<%= paginate @items_true %>

@@ -9,26 +9,26 @@
       <th>氏名</th>
       <td>
         <%= f.text_field :last_name, autofocus: true, id:"inputLast_name", placeholder:"姓" %>
-        <%= f.text_field :first_name, autofocus: true, id:"inputFirst_name", placeholder:"名" %>
+        <%= f.text_field :first_name, id:"inputFirst_name", placeholder:"名" %>
       </td>
     </tr>
     <tr>
       <th>フリガナ</th>
       <td>
-        <%= f.text_field :last_name_kana, autofocus: true, id:"inputLast_name_kana", placeholder:"セイ" %>
-        <%= f.text_field :first_name_kana, autofocus: true, id:"inputFirst_name_kana", placeholder:"メイ" %>
+        <%= f.text_field :last_name_kana, id:"inputLast_name_kana", placeholder:"セイ" %>
+        <%= f.text_field :first_name_kana, id:"inputFirst_name_kana", placeholder:"メイ" %>
       </td>
     </tr>
     <tr>
       <th>郵便番号</th>
       <td>
-        <%= f.text_field :postal_code, autofocus: true, id:"inputPostal_code", placeholder:"郵便番号" %>
+        <%= f.text_field :postal_code, id:"inputPostal_code", placeholder:"郵便番号" %>
       </td>
     </tr>
     <tr>
       <th>住所</th>
       <td>
-        <%= f.text_field :address, autofocus: true, id:"inputAddress", placeholder:"住所" %>
+        <%= f.text_field :address, id:"inputAddress", placeholder:"住所" %>
       </td>
     </tr>
     <tr>
@@ -43,15 +43,8 @@
         <%= f.email_field :email, autofocus: true, id:"inputEmail", placeholder:"メールアドレス" %>
       </td>
     </tr>
-    <tr>
-      <th>会員ステータス</th>
-      <td>
-        <%= f.radio_button :is_deleted, "false" %>
-        <%= f.label :有効 %>
-        <%= f.radio_button :is_deleted, "true" %>
-        <%= f.label :退会 %>
-      </td>
-    </tr>
   </table>
-  <%= f.submit '変更を保存' %>
+  <%= f.submit '編集内容を保存' %>
 <% end %>
+
+<%= link_to "退会する", unsubscribe_path %>

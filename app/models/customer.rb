@@ -8,4 +8,8 @@ class Customer < ApplicationRecord
   has_many :addresses
   validates :is_deleted, inclusion: { in: [false, true] }
 
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
+
 end

@@ -6,20 +6,22 @@
 </p>
 
 <h2>新着商品</h2>
-<% @items.each do |item| %>
-    <div>
-        <%= link_to item_path(item.id) do %>
-            <p>
-                <% if item.image.attached? %>
-                    <%= image_tag item.image, size: "120x100" %>
-                <% else %>
-                    <%= image_tag 'no_image', size: "120x100" %>
-                <% end %>
-            </p>
-            <p><%= item.name %></p>
-        <% end %>
-        <p>￥<%= (item.price * 1.1).floor.to_s(:delimited) %></p>
-    </div>
-<% end %>
+<div class="d-flex">
+    <% @items_true_top.each do |item| %>
+        <div>
+            <%= link_to item_path(item.id) do %>
+                <p>
+                    <% if item.image.attached? %>
+                        <%= image_tag item.image, size: "120x100" %>
+                    <% else %>
+                        <%= image_tag 'no_image', size: "120x100" %>
+                    <% end %>
+                </p>
+                <p><%= item.name %></p>
+            <% end %>
+            <p>￥<%= (item.price * 1.1).floor.to_s(:delimited) %></p>
+        </div>
+    <% end %>
+</div>
 
 <%= link_to "全ての商品を見る＞", items_path %>

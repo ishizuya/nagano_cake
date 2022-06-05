@@ -17,13 +17,17 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
+  get "customers/unsubscribe" => "public/customers#unsubscribe", as: "unsubscribe"
+  patch "customers/withdraw" => "public/customers#withdraw" , as: "withdraw"
+  delete "cart_items/destroy_all" => "public/cart_items#destroy_all", as:"destroy_all"
+
   scope module: :public do
     resources :items,only:[:index, :show]
-    resources :customers,only:[:edit,:update,:unsubscribe,:withdraw,:show]
+    resources :customers,only:[:edit,:update,:show]
     # resources :customers, param: :my_page, path: '/', only: [:edit,:show,:update,:unsubscribe,:withdraw]
-    resources :cart_items,only:[:index]
+    resources :cart_items,only:[:index,:update,:destroy,:create]
     resources :orders,only:[:index,:show,:new]
-    resources :addresses,only:[:index,:edit]
+    resources :addresses,only:[:index,:edit,:create,:update,:destroy]
   end
 
   namespace :admin do

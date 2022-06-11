@@ -14,7 +14,6 @@ class Public::AddressesController < ApplicationController
     end
   end
 
-
   def edit
     @address = Address.find(params[:id])
   end

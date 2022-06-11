@@ -20,13 +20,15 @@ Rails.application.routes.draw do
   get "customers/unsubscribe" => "public/customers#unsubscribe", as: "unsubscribe"
   patch "customers/withdraw" => "public/customers#withdraw" , as: "withdraw"
   delete "cart_items/destroy_all" => "public/cart_items#destroy_all", as:"destroy_all"
+  post "orders/confirm" => "public/orders#confirm", as: "confirm"
+  get "oders/complete" => "public/orders#complete", as: "complete"
 
   scope module: :public do
     resources :items,only:[:index, :show]
     resources :customers,only:[:edit,:update,:show]
     # resources :customers, param: :my_page, path: '/', only: [:edit,:show,:update,:unsubscribe,:withdraw]
     resources :cart_items,only:[:index,:update,:destroy,:create]
-    resources :orders,only:[:index,:show,:new]
+    resources :orders,only:[:index,:show,:new,:create]
     resources :addresses,only:[:index,:edit,:create,:update,:destroy]
   end
 

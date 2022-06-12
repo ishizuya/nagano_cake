@@ -55,18 +55,19 @@
 </table>
 
 <h3>支払い方法</h3>
-
+<%= @order.payment_method_i18n %>
 <h3>お届け先</h3>
-
+〒<%= @order.postal_code %>　<%= @order.address %>　<%= @order.name %>
 <div>
-  <%= form_with model: @order, url: orders_path,  local: true do |f| %>
-    <%= f.hidden_field :customer_id, value: @order.customer_id %>
-    <%= f.hidden_field :postal_code, value: @order.postal_code %>
-    <%= f.hidden_field :address, value: @order.address %>
-    <%= f.hidden_field :name, value: @order.name %>
-    <%= f.hidden_field :shipping_cost, value: @order.shipping_cost %>
-    <%= f.hidden_field :total_payment, value: @order.total_payment %>
-    <%= f.hidden_field :payment_method, value: @order.payment_method %>
+  <%= form_with model: @order, url: orders_path, local: true do |f| %>
+    <%= f.hidden_field :customer_id %>
+    <%= f.hidden_field :postal_code %>
+    <%= f.hidden_field :address %>
+    <%= f.hidden_field :name %>
+    <%= f.hidden_field :shipping_cost, :value => @order.shipping_cost %>
+    <%= f.hidden_field :total_payment, :value => @order.total_payment %>
+    <%= f.hidden_field :payment_method, :value => @order.payment_method %>
+
     <%= f.submit "注文を確定する" %>
   <% end %>
 </div>

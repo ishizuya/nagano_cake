@@ -1,27 +1,30 @@
-<p>
+<p class="text-center mt-5">
     ようこそ、ながのcakeへ！<br>
     このサイトは、ケーキ販売のECサイトになります。<br>
     会員でない方も閲覧はできますが、<br>
     購入には会員登録が必要になります。
 </p>
 
-<h2>新着商品</h2>
-<div class="d-flex">
-    <% @items_true_top.each do |item| %>
-        <div>
-            <%= link_to item_path(item.id) do %>
-                <p>
-                    <% if item.image.attached? %>
-                        <%= image_tag item.image, size: "120x100" %>
-                    <% else %>
-                        <%= image_tag 'no_image', size: "120x100" %>
-                    <% end %>
-                </p>
-                <p><%= item.name %></p>
-            <% end %>
-            <p>￥<%= (item.price * 1.1).floor.to_s(:delimited) %></p>
-        </div>
-    <% end %>
+<div class="container">
+    <h2 class="font-weight-bold p-5">新着商品</h2>
+    <div class="d-flex align-items-center justify-content-center">
+        <% @items_true_top.each do |item| %>
+            <div class="p-3">
+                <%= link_to item_path(item.id) do %>
+                    <p>
+                        <% if item.image.attached? %>
+                            <%= image_tag item.image, size: "180x140" %>
+                        <% else %>
+                            <%= image_tag 'no_image', size: "180x140" %>
+                        <% end %>
+                    </p>
+                    <p><%= item.name %></p>
+                <% end %>
+                <p>￥<%= (item.price * 1.1).floor.to_s(:delimited) %></p>
+            </div>
+        <% end %>
+    </div>
+    <p class="text-right">
+        <%= link_to "全ての商品を見る＞", items_path %>
+    </p>
 </div>
-
-<%= link_to "全ての商品を見る＞", items_path %>

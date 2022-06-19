@@ -17,7 +17,7 @@
           registered_address: "登録済み住所から選択"
           new_address: "新しいお届け先"
 
-      order_details:
+      order_detail:
         making_status:
           not_production: "製作不可"
           waiting_production: "製作待ち"

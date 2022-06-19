@@ -1,6 +1,6 @@
 class Admin::ItemsController < ApplicationController
     before_action :authenticate_admin!
-  
+
   def new
     @item = Item.new
   end
@@ -8,14 +8,14 @@ class Admin::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      redirect_to admin_items_path
+      redirect_to admin_item_path(@item)
     else
       render :new
     end
   end
 
   def index
-    @items = Item.all
+    @items = Item.all.order('id DESC').page(params[:page]).per(10)
   end
 
   def show
@@ -29,7 +29,7 @@ class Admin::ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    @item.image.attach(params[:id]) if @item.image.blank?
+    # @item.image.attach(params[:id])
     if @item.update(item_params)
       flash[:success] = '更新しました'
       redirect_to admin_item_path(@item)

@@ -14,9 +14,18 @@ class Admin::OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
+    @order_details = OrderDetail.where(order_id: @order.id)
     @status = params[:order][:status]
-    if @status == "payment_confirmation"
+    if @status == "waiting_deposit"
+       @order.update(status: 0)
+    elsif @status == "payment_confirmation"
       @order.update(status: 1)
+      @order_details.update_all(making_status: 1)
+    elsif @status == "in_production"
+      @order.update(status: 2)
+    elsif
+      @status == "preparing_ship"
+      @order.update(status: 3)
     elsif
       @status == "sent"
       @order.update(status: 4)
